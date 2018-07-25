@@ -122,7 +122,7 @@ class VQAModel:
             q_len = Variable(q_len.cuda(async=True), **var_params)
             out = self.net(v, q, q_len)
             predict_proba = softmax(out)
-        return predict_proba.cpu().numpy()[idxs]
+        return predict_proba.cpu().numpy()[np.argsort(idxs)]
 
     def predict_proba_same_image(self, questions, image_features, batch_size=16):
         """image_features is the set of features for a single image, 3d array"""
